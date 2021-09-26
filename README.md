@@ -12,7 +12,7 @@ java -jar app.jar saveFolder downloadNumber
 
 1. `saveFolder`: 保存的文件夹
    1. Windows CMD 或 Powershell 使用 `d:\aaa` 这种形式，Windows GitBash 使用 `/d/aaa` 这种形式，Windows WSL 使用 `/mnt/d/aaa` 这种形式（tips: Windows 路径名不区分大小写）
-   2. macOS、Linux 使用 `mnt/d/aaa` 这种形式
+   2. macOS、Linux 使用 `/mnt/d/aaa` 这种形式
 2. `downloadNumber`: 下载的头像数量
 
 比如在 Windows 10 cmd 下执行：`java -jar app.jar d:\aaa 10` 将会在 D 盘的 aaa 文件夹下保存 10 张头像文件。
