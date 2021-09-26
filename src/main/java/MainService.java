@@ -50,7 +50,7 @@ public class MainService {
                     foo(folder, seq);
                     ++seq;
                 }
-                if (seq >= LOOP_COUNT) {
+                else {
                     timer.cancel();
                 }
             }
