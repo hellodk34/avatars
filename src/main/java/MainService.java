@@ -29,8 +29,7 @@ public class MainService {
     private static int seq = 0;
 
     // gravatar 官方地址是 https://www.gravatar.com/avatar/ 此处使用国内 cdn 加快速度
-//    private static String prefix = "https://sdn.geekzu.org/avatar/";
-    private static String prefix = "https://gravatar.loli.net/avatar/";
+    private static String serverUrl = "https://sdn.geekzu.org/avatar/";
 
     private static MockNeat mockNeat;
 
@@ -47,7 +46,13 @@ public class MainService {
     public static void main(String[] args) {
         int argsLength = args.length;
         if (argsLength != 3) {
-            System.out.println("Usage: java -jar app.jar saveFolder downloadNumber, example: java -jar app.jar d:\\aaa 10 TYPE");
+            System.out.println("Usage: java -jar app.jar SAVE_FOLDER DOWNLOAD_NUMBER TYPE" + System.lineSeparator() +
+                    "Example: java -jar app.jar d:\\aaa 10 identicon" + System.lineSeparator() +
+                    "TYPE: identicon | retro | robohash" + System.lineSeparator() +
+                    "  identicon: a geometric pattern based on an email hash" + System.lineSeparator() +
+                    "  retro: awesome generated, 8-bit arcade-style pixelated faces" + System.lineSeparator() +
+                    "  robohash: a generated robot with different colors, faces, etc"
+            );
             return;
         }
         String folder = args[0];
@@ -61,8 +66,7 @@ public class MainService {
                 if (seq < LOOP_COUNT) {
                     foo(folder, seq, type);
                     ++seq;
-                }
-                else {
+                } else {
                     timer.cancel();
                 }
             }
@@ -86,7 +90,7 @@ public class MainService {
         String fakeEmail = mockNeat.emails().val().trim().toLowerCase();
         String result = DigestUtils.md5Hex(fakeEmail).toLowerCase();
         StringBuilder sb = new StringBuilder();
-        sb.append(prefix)
+        sb.append(serverUrl)
                 .append(result)
                 .append("?d=")
                 .append(type);
