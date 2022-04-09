@@ -34,7 +34,7 @@ java -jar /path/to/app.jar SAVE_FOLDER DOWNLOAD_NUMBER TYPE PIXEL
    2. macOS、Linux 使用 `/mnt/ssd/aaa` 这种形式
 2. `DOWNLOAD_NUMBER`: 下载的头像数量
 3. `TYPE`: 风格类型，取值有 identicon | retro | robohash
-4. `PIXEL`: 支持 1 ~ 2048 之间的整数值（官方文档当中说最大是 1024，经测试最大应该是 2048，可能官方文档尚未更新）
+4. `PIXEL`: 可选参数，不输入时默认下载像素值 `80` 的图片。支持 1 ~ 2048 之间的整数值（官方文档当中说最大是 1024，经测试最大应该是 2048，可能官方文档尚未更新）
 
 程序说明：
 
