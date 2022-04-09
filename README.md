@@ -1,34 +1,39 @@
 # avatars
 
-gravatar 风格头像快速生成器。基于随机邮箱生成以下类型的头像
+gravatar 风格头像快速生成器。基于随机邮箱生成随机头像。
 
-- identicon style: a geometric pattern based on an email hash
-- retro style: awesome generated, 8-bit arcade-style pixelated faces
-- robohash style: a generated robot with different colors, faces, etc
+- 支持下载任意数量头像
+- 支持不同风格头像
+- 支持设置头像分辨率，满足不同尺寸头像的需求
 
-![20220408210043](https://pic.dogimg.com/2022/04/08/62503207ea4c5.png)
+![20220409223739](https://pic.dogimg.com/2022/04/09/62519a3fc5831.png)
 
 # 前言
 
 本项目之前用了一个 [API](https://api.prodless.com/avatar.png) ，但是现在该 API 已经停止服务了。现借助 gravatar 官方的服务写了此程序。个人感觉现在注册的网站越来越多，很多网站注册后默认不提供头像，需要用户自行上传，我经常为找不到合适的头像发愁，每个网站使用相同的头像又觉得泄露了隐私，于是我就产生了这样的需求，生成这些静态文件后保存在本地文件夹中，以后设置头像时随便挑选一个喜欢的即可。
 
+# 版本日志
+
+- `v1.0.0` 版本过于久远，由于原 API 失效，现已不提供 jar 包下载。released on 2021-09-26
+- `v1.0.1` 基于官方 API 实现，可以下载多种风格的头像。released on 2022-04-08
+- `v1.0.2` 增加分辨率参数，可以下载不同分辨率的头像。released on 2022-04-09
+
 # 使用说明
 
-![20220408211743](https://pic.dogimg.com/2022/04/08/62503603930d3.png)
+![20220409224058](https://pic.dogimg.com/2022/04/09/62519b06c85a5.png)
 
 ```
-java -jar app.jar saveFolder downloadNumber TYPE
+java -jar /path/to/app.jar SAVE_FOLDER DOWNLOAD_NUMBER TYPE PIXEL
 ```
 
-参数说明：
+程序依次接收 4 个参数，分别是 `保存路径`、`欲下载数量`、`风格类型`、`分辨率`，参数说明：
 
 1. `SAVE_FOLDER`: 准备保存的文件夹
    1. Windows CMD 或 Powershell 使用 `d:\aaa` 这种形式，Windows GitBash 使用 `/d/aaa` 这种形式，Windows WSL 使用 `/mnt/d/aaa` 这种形式（tips: Windows 路径名不区分大小写）
    2. macOS、Linux 使用 `/mnt/ssd/aaa` 这种形式
 2. `DOWNLOAD_NUMBER`: 下载的头像数量
 3. `TYPE`: 风格类型，取值有 identicon | retro | robohash
-
-比如在 Windows 10 cmd 下执行：`java -jar d:\app.jar d:\aaa 10 robohash` 将会在 D 盘的 aaa 文件夹下保存 10 张 robohash 风格的头像文件。
+4. `PIXEL`: 支持 1 ~ 2048 之间的整数值（官方文档当中说最大是 1024，经测试最大应该是 2048，可能官方文档尚未更新）
 
 程序说明：
 

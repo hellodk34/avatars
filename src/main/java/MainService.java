@@ -33,11 +33,13 @@ public class MainService {
 
     private static MockNeat mockNeat;
 
+    private static Integer pixel = null;
+
     static {
         mockNeat = MockNeat.secure();
     }
 
-    private static String getNowTime() {
+    private String getNowTime() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss");
         return sdf.format(date);
@@ -45,26 +47,38 @@ public class MainService {
 
     public static void main(String[] args) {
         int argsLength = args.length;
-        if (argsLength != 3) {
-            System.out.println("Usage: java -jar app.jar SAVE_FOLDER DOWNLOAD_NUMBER TYPE" + System.lineSeparator() +
-                    "Example: java -jar app.jar d:\\aaa 10 identicon" + System.lineSeparator() +
+        if (argsLength != 3 && argsLength != 4) {
+            System.out.println("Usage: java -jar /path/to/app.jar SAVE_FOLDER DOWNLOAD_NUMBER TYPE PIXEL" + System.lineSeparator() + System.lineSeparator() +
+                    "Example: java -jar d:\\app.jar d:\\aaa 10 identicon 240" + System.lineSeparator() + System.lineSeparator() +
+                    "SAVE_FOLDER: the folder path you want to store these images" + System.lineSeparator() +
+                    "DOWNLOAD_NUMBER: number you want to save to local disk" + System.lineSeparator() +
                     "TYPE: identicon | retro | robohash" + System.lineSeparator() +
                     "  identicon: a geometric pattern based on an email hash" + System.lineSeparator() +
                     "  retro: awesome generated, 8-bit arcade-style pixelated faces" + System.lineSeparator() +
-                    "  robohash: a generated robot with different colors, faces, etc"
+                    "  robohash: a generated robot with different colors, faces, etc" + System.lineSeparator() +
+                    "PIXEL(optional): a number between 1 and 2048, default is 80 if you did not specify this parameter"
             );
             return;
         }
         String folder = args[0];
         Integer LOOP_COUNT = Integer.parseInt(args[1]);
         String type = args[2];
+
+        if (argsLength == 4) {
+            pixel = Integer.parseInt(args[3]);
+            if (pixel < 1 || pixel > 2048) {
+                System.out.println("PIXEL should be between 1 and 2048.");
+                return;
+            }
+        }
+        MainService mainService = new MainService();
         Date now = new Date();
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 if (seq < LOOP_COUNT) {
-                    foo(folder, seq, type);
+                    mainService.foo(folder, seq, type, pixel);
                     ++seq;
                 } else {
                     timer.cancel();
@@ -74,19 +88,19 @@ public class MainService {
         timer.schedule(task, now, period);
     }
 
-    private static void foo(String folder, Integer seq, String type) {
+    private void foo(String folder, Integer seq, String type, Integer pixel) {
         Path path = Paths.get(folder);
         StringBuilder sb = new StringBuilder();
         String nowTime = getNowTime();
         sb.append(path).append("/").append(nowTime).append(".png");
         File file = new File(sb.toString());
-        HttpRequest request = HttpRequest.get(apiUrl(type));
+        HttpRequest request = HttpRequest.get(apiUrl(type, pixel));
         HttpResponse response = request.timeout(40000).execute();
         response.writeBody(file);
         System.out.println("Current output file sequence is " + (seq + 1) + ", fileName is " + nowTime + ".png");
     }
 
-    private static String apiUrl(String type) {
+    private String apiUrl(String type, Integer pixel) {
         String fakeEmail = mockNeat.emails().val().trim().toLowerCase();
         String result = DigestUtils.md5Hex(fakeEmail).toLowerCase();
         StringBuilder sb = new StringBuilder();
@@ -94,6 +108,10 @@ public class MainService {
                 .append(result)
                 .append("?d=")
                 .append(type);
+        if (pixel != null) {
+            sb.append("&s=")
+                    .append(pixel);
+        }
         return sb.toString();
     }
 }
