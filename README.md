@@ -7,7 +7,7 @@ gravatar 风格头像快速生成器。基于随机邮箱生成随机头像。
 - 支持设置头像分辨率（1 到 2048），满足不同尺寸头像的需求，生成的头像是正方形
 - 其他感兴趣的可阅读 [官方说明](https://en.gravatar.com/site/implement/images/)
 
-![20220409223739](https://pic.dogimg.com/2022/04/09/62519a3fc5831.png)
+![20220409223739](./screenshots/1.png)
 
 # 前言
 
@@ -21,7 +21,7 @@ gravatar 风格头像快速生成器。基于随机邮箱生成随机头像。
 
 # 使用说明
 
-![20220409224058](https://pic.dogimg.com/2022/04/09/62519b06c85a5.png)
+![20220409224058](./screenshots/2.png)
 
 ```
 java -jar /path/to/app.jar SAVE_FOLDER DOWNLOAD_NUMBER TYPE PIXEL
