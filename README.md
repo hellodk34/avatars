@@ -1,6 +1,9 @@
 # avatars
 
-gravatar 风格头像快速生成器。基于随机邮箱生成随机头像。
+---
+![v1.0.2](https://img.shields.io/github/downloads/hellodk34/avatars/v1.0.2/total) ![MIT](https://img.shields.io/github/license/hellodk34/avatars) ![Java](https://img.shields.io/badge/language-Java-green)
+
+gravatar 风格头像快速生成器。基于随机邮箱生成随机头像。使用后如果觉得有用欢迎点个 **免费的⭐️️~**
 
 - 支持下载任意数量头像
 - 支持不同风格头像，支持 identicon | retro | robohash，其他风格的头像必须是注册账号，目前随机邮箱只能生成这三种头像
